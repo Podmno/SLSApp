@@ -1,2 +1,5 @@
 .DS_Store
+Thumbs.db
 app/CMakeLists.txt.user
+.idea
+cmake-build-debug

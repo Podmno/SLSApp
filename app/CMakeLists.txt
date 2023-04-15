@@ -22,30 +22,41 @@ set(PROJECT_SOURCES
         MainWindow.cpp
         MainWindow.h
         MainWindow.ui
+
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(SLS
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET SLS APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(SLS SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(SLS
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+set(PROJECT_SOURCES_SIM
+
+        Sim/SGHeaders.h Sim/SGHeaders.cpp
+        Sim/SGFile.h Sim/SGFile.cpp
+        Sim/SGModalBase.h Sim/SGModalBase.cpp
+        Sim/SGModalGround.h Sim/SGModalGround.cpp
+        Sim/SGModalLine.h Sim/SGModalLine.cpp
+        Sim/SGModalRes.h Sim/SGModalRes.cpp
+        Sim/SGModalSource.h Sim/SGModalSource.cpp
+        Sim/SGCanvasNotification.h Sim/SGCanvasNotification.cpp Sim/SGCanvasNotification.ui
+        Sim/SGCanvasView.h Sim/SGCanvasView.cpp Sim/SGCanvasView.ui
+        Sim/SGEditorModal.h Sim/SGEditorModal.cpp Sim/SGEditorModal.ui
+)
+
+set(PROJECT_SOURCES_LAB 
+
+        Lab/LG2DWidget.h Lab/LG2DWidget.cpp Lab/LG2DWidget.ui
+        Lab/LG3DWidget.h Lab/LG3DWidget.cpp Lab/LG3DWidget.ui
+        Lab/LGDataModal.h Lab/LGDataModal.cpp
+        Lab/LGStyleCollection.h Lab/LGStyleCollection.cpp
+)
+
+qt_add_executable(SLS
+    MANUAL_FINALIZATION
+    ${PROJECT_SOURCES}
+    ${PROJECT_SOURCES_SIM}
+    ${PROJECT_SOURCES_LAB}
+)
+
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${PROJECT_SOURCES})
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${PROJECT_SOURCES_SIM})
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${PROJECT_SOURCES_LAB})
 
 target_link_libraries(SLS PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::DataVisualization Qt${QT_VERSION_MAJOR}::Charts)
 
