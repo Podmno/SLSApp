@@ -1,6 +1,6 @@
 #ifndef SGCANVASVIEW_H
 #define SGCANVASVIEW_H
-#include "SGCanvas.h"
+
 #include "SGModalBase.h"
 #include "SGModalRes.h"
 #include "SGModalLine.h"
@@ -107,7 +107,7 @@ private:
     QPen darkPen;
 
     // 其中保存的是电路图信息
-    SGCanvas* canvas;
+    // SGCanvas* canvas;
         
     // 输出 Canvas 的基本 Grid 信息
     void outputCanvasGridInfo();

@@ -521,6 +521,8 @@ void SGCanvasView::setCanvasCurrentStatus(SGCanvasViewStatus s)
         case SGCanvasViewStatus::CanvasStatusSelecting:
             showNotification("选择模式");
             break;
+        default:
+            break;
     }
     
     // TODO: 加入元器件多选模式
