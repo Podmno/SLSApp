@@ -16,6 +16,14 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class STNewProject; }
 QT_END_NAMESPACE
 
+/// 新建项目的列表
+struct STNewProjectList {
+    
+    
+    
+};
+
+
 class STNewProject : public QDialog {
 Q_OBJECT
 

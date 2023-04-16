@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     widgetFileManager = new STFileManager(this);
+    toolBox = new STToolBox(this);
+    canvasView = new SGCanvasView(this);
+    formEditor = new STFormEditor(this);
     ui->tabWidget->addTab(widgetFileManager, "浏览");
 
     connect(ui->actionNew_Simulation_Project, &QAction::triggered, this, [=](){
@@ -20,10 +23,30 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionQt_Version, &QAction::triggered, this, [=](){
         QApplication::aboutQt();
     });
+    
+    connect(ui->actionPreferences, &QAction::triggered, this, [=](){
+        STPreferences* pref = new STPreferences();
+        pref->show();
+    });
 
 
     initMenuBar();
     removeDockWidgetTitleBar();
+    
+    QDockWidget* dockWidgetToolBox = new QDockWidget(this);
+    dockWidgetToolBox->setWindowTitle("工具箱");
+    dockWidgetToolBox->setWidget(toolBox);
+    this->addDockWidget(Qt::RightDockWidgetArea, dockWidgetToolBox);
+    
+    QDockWidget* dockWidgetFormEditor = new QDockWidget(this);
+    dockWidgetFormEditor->setWindowTitle("表格编辑器");
+    dockWidgetFormEditor->setWidget(formEditor);
+    this->addDockWidget(Qt::RightDockWidgetArea, dockWidgetFormEditor);
+    
+    ui->gridLayout_2->addWidget(canvasView);
+    
+    
+    
 }
 
 MainWindow::~MainWindow()
@@ -45,15 +68,37 @@ void MainWindow::initMenuBar()
 
     auto button_cursor = createToolButton("光标",":/pic/Res/cursor.png");
     ui->toolBar->addWidget(button_cursor);
+    connect(button_cursor, &QPushButton::clicked, this, [=](){
+        canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusNormal);
+    });
 
     auto button_copy = createToolButton("复制",":/pic/Res/copy.png");
     ui->toolBar->addWidget(button_copy);
+    
 
     auto button_paste = createToolButton("粘贴",":/pic/Res/paste.png");
     ui->toolBar->addWidget(button_paste);
 
     auto button_select = createToolButton("选择",":/pic/Res/select.png");
     ui->toolBar->addWidget(button_select);
+    connect(button_select, &QPushButton::clicked, this, [=](){
+        canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusSelecting);
+    });
+    
+    ui->toolBar->addSeparator();
+    
+    auto button_zoomin = createToolButton("放大",":/pic/Res/zoom_add.png");
+    connect(button_zoomin, &QPushButton::clicked, this, [=](){
+        canvasView->onZoomIncreaseClicked();
+    });
+    ui->toolBar->addWidget(button_zoomin);
+    
+    auto button_zoomout = createToolButton("缩小",":/pic/Res/zoom_minus.png");
+    ui->toolBar->addWidget(button_zoomout);
+    connect(button_zoomin, &QPushButton::clicked, this, [=](){
+        canvasView->onZoomDecreaseClicked();
+    });
+    
     ui->toolBar->setIconSize(QSize(25,25));
 
     QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect(this);

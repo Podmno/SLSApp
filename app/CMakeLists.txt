@@ -23,7 +23,12 @@ set(PROJECT_SOURCES
         MainWindow.h
         MainWindow.ui
         Resources.qrc
-        STNewProject.cpp STNewProject.h STNewProject.ui STFileManager.cpp STFileManager.h STFileManager.ui)
+        STNewProject.cpp STNewProject.h STNewProject.ui
+        STFileManager.cpp STFileManager.h STFileManager.ui
+        STPreferences.h STPreferences.cpp STPreferences.ui
+        STToolBox.h STToolBox.cpp STToolBox.ui
+        STFormEditor.h STFormEditor.cpp STFormEditor.ui
+)
 
 set(PROJECT_SOURCES_SIM
 

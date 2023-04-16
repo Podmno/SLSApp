@@ -10,5 +10,11 @@
         <file>Res/pro_3d.png</file>
         <file>Res/pro_calc.png</file>
         <file>Res/pro_sim.png</file>
+        <file>Res/zoom_add.png</file>
+        <file>Res/zoom_minus.png</file>
+    </qresource>
+    <qresource prefix="/templates">
+        <file>Res/method_of_mna.sls</file>
+        <file>Res/node_method_of_analysis.sls</file>
     </qresource>
 </RCC>
