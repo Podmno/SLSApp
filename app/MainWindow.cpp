@@ -46,6 +46,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout_2->addWidget(canvasView);
     
     
+    connect(toolBox, &STToolBox::modalSelected, this, [=](SGItemType type){
+        qDebug() << type;
+        canvasView->setFocus();
+        
+        canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusEditing);
+        canvasView->setItemPrepareToDraw(type);
+    });
     
 }
 

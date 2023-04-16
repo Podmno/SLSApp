@@ -1,9 +1,6 @@
 #include "SGCanvasView.h"
 #include "ui_SGCanvasView.h"
 
-// TODO: 电路图中的节点绘制：仅在分析完成 Netlist 后对节点进行标注，若没有分析的话不标注节点
-// TODO: Port to SVG Paint System (IMPORTANT)
-
 
 SGCanvasView::SGCanvasView(QWidget *parent) :
     QWidget(parent),
@@ -182,33 +179,7 @@ void SGCanvasView::drawItemOnCanvas(SGModalBase* item)
     }
 
     item->drawItem(this, viewInfo);
-    /*
-    if(item->itemType == SGItemType::Resistance) {
 
-        SGModalRes* modal = (SGModalRes*) item;
-        modal->drawItem(this, viewInfo);
-    }
-    
-    if(item->itemType == SGItemType::Line) {
-        SGModalLine* modal = (SGModalLine*) item;
-        modal->drawItem(this, viewInfo);
-    }
-    
-    if(item->itemType == SGItemType::SourceV) {
-        SGModalSource* modal = (SGModalSource*) item;
-        modal->drawItem(this, viewInfo);
-    }
-    
-    if(item->itemType == SGItemType::SourceA) {
-        SGModalSource* modal = (SGModalSource*) item;
-        modal->drawItem(this, viewInfo);
-    }
-    
-    if(item->itemType == SGItemType::Ground) {
-        SGModalGround* modal = (SGModalGround*) item;
-        modal->drawItem(this, viewInfo);
-    }
-     */
 }
 
 void SGCanvasView::setItemPrepareToDraw(SGItemType type)
@@ -314,14 +285,20 @@ void SGCanvasView::paintEvent(QPaintEvent *event)
 void SGCanvasView::mousePressEvent(QMouseEvent* event)
 {
     
+    // 加入此防止鼠标信息无法获取
+    sendCurrentMousePoint(event->position());
+    
+    
     if(event->button() == Qt::LeftButton) {
         switch (canvasStatus) {
             case SGCanvasViewStatus::CanvasStatusEditing:
                 showNodeOnCanvas = true;
                 //mousePressNodeStart.X
+                
                 mousePressNodeStart.X = currentNode.X;
                 mousePressNodeStart.Y = currentNode.Y;
                 
+                qDebug() << "mousePressNodeStart: " << mousePressNodeStart.X << "," << mousePressNodeStart.Y;
                 
                 // FIXME: 此处注意可能会访问到空指针
                 currentItemOnDraw->itemLeftVertex.X = mousePressNodeStart.X;

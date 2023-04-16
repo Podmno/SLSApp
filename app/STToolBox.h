@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include "Sim/SGHeaders.h"
 namespace Ui {
 class STToolBox;
 }
@@ -22,6 +23,11 @@ private:
     Ui::STToolBox *ui;
     
     void initToolBox();
+    
+signals:
+    
+    /// 选择的元器件响应
+    void modalSelected(SGItemType);
 };
 
 #endif // STTOOLBOX_H
