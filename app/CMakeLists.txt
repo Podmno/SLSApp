@@ -22,8 +22,8 @@ set(PROJECT_SOURCES
         MainWindow.cpp
         MainWindow.h
         MainWindow.ui
-
-)
+        Resources.qrc
+        STNewProject.cpp STNewProject.h STNewProject.ui STFileManager.cpp STFileManager.h STFileManager.ui)
 
 set(PROJECT_SOURCES_SIM
 
@@ -68,9 +68,20 @@ set_target_properties(SLS PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    add_custom_command(
+            TARGET SLS
+            POST_BUILD
+            COMMAND plutil -replace NSRequiresAquaSystemAppearance -bool true ./Debug/SLS.app/Contents/Info.plist
+    )
+endif()
+
+
 install(TARGETS SLS
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    
+
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SLS)

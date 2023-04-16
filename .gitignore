@@ -3,3 +3,4 @@ Thumbs.db
 app/CMakeLists.txt.user
 .idea
 cmake-build-debug
+.VSCodeCounter

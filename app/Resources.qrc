@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/pic">
+        <file>Res/copy.png</file>
+        <file>Res/cursor.png</file>
+        <file>Res/paste.png</file>
+        <file>Res/save.png</file>
+        <file>Res/saveas.png</file>
+        <file>Res/select.png</file>
+        <file>Res/pro_2d.png</file>
+        <file>Res/pro_3d.png</file>
+        <file>Res/pro_calc.png</file>
+        <file>Res/pro_sim.png</file>
+    </qresource>
+</RCC>
