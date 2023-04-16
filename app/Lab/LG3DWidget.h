@@ -2,7 +2,7 @@
 #define LG3DWIDGET_H
 
 #include <QWidget>
-#include "LGDataModal.h"
+#include "LGDataModel.h"
 
 namespace Ui {
 class LG3DWidget;
@@ -18,7 +18,7 @@ public:
     
     void update();
 
-    LGBaseModal* dataModal;
+    LGBaseModel* dataModel;
     
 private:
     Ui::LG3DWidget *ui;

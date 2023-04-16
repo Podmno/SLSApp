@@ -7,12 +7,12 @@ SGFile::SGFile(QObject *parent)
 }
 
 
-QString SGFile::saveFile(QList<SGModalBase*> itemList)
+QString SGFile::saveFile(QList<SGModelBase*> itemList)
 {
     QJsonArray array;
     
-    for(SGModalBase* modal : itemList) {
-        QJsonObject obj = modal->convertToJson();
+    for(SGModelBase* Model : itemList) {
+        QJsonObject obj = Model->convertToJson();
         array.append(obj);
     }
     
@@ -22,9 +22,9 @@ QString SGFile::saveFile(QList<SGModalBase*> itemList)
     return QString(QJsonDocument(obj_re).toJson());
 }
 
-QList<SGModalBase*> SGFile::loadFile(QString jsonFileContent)
+QList<SGModelBase*> SGFile::loadFile(QString jsonFileContent)
 {
-    QList<SGModalBase*> listBase;
+    QList<SGModelBase*> listBase;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonFileContent.toLocal8Bit().data());
     if(!jsonDocument.isNull())
     {
@@ -34,13 +34,13 @@ QList<SGModalBase*> SGFile::loadFile(QString jsonFileContent)
         {
             QJsonArray array_content = jsonValue.toArray();
             for(int i=0; i<array_content.count(); i++) {
-                QJsonObject obj_modal = array_content.at(i).toObject();
+                QJsonObject obj_Model = array_content.at(i).toObject();
                 
-                SGItemType obj_type = (SGItemType)obj_modal.value("type").toInt();
-                SGModalBase* modalBase = createModalBase(obj_type);
+                SGItemType obj_type = (SGItemType)obj_Model.value("type").toInt();
+                SGModelBase* ModelBase = createModelBase(obj_type);
                 
-                modalBase->loadFromJson(obj_modal);
-                listBase.append(modalBase);
+                ModelBase->loadFromJson(obj_Model);
+                listBase.append(ModelBase);
             }
         }
     }
@@ -52,27 +52,27 @@ QList<SGModalBase*> SGFile::loadFile(QString jsonFileContent)
     return listBase;
 }
 
-SGModalBase* SGFile::createModalBase(SGItemType itemType)
+SGModelBase* SGFile::createModelBase(SGItemType itemType)
 {
-    SGModalBase* modalBase;
+    SGModelBase* ModelBase;
     switch (itemType) {
         case SGItemType::ItemTypeResistance:
-            modalBase = new SGModalRes();
+            ModelBase = new SGModelRes();
             break;
         case SGItemType::ItemTypeGround:
-            modalBase = new SGModalGround();
+            ModelBase = new SGModelGround();
             break;
         case SGItemType::ItemTypeSourceA:
-            modalBase = new SGModalSource(SGModalSourceType::SourceTypeA);
+            ModelBase = new SGModelSource(SGModelSourceType::SourceTypeA);
             break;
         case SGItemType::ItemTypeSourceV:
-            modalBase = new SGModalSource(SGModalSourceType::SourceTypeV);
+            ModelBase = new SGModelSource(SGModelSourceType::SourceTypeV);
             break;
         case SGItemType::ItemTypeLine:
-            modalBase = new SGModalLine();
+            ModelBase = new SGModelLine();
             break;
         default:
             break;
     }
-    return modalBase;
+    return ModelBase;
 }

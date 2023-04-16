@@ -17,15 +17,15 @@ LG3DWidget::~LG3DWidget()
 void LG3DWidget::update()
 {
     
-    if(dataModal == nullptr) {
+    if(dataModel == nullptr) {
         return;
     }
     
-    if(dataModal->dataType == LGModalType::DataModalBar3D) {
+    if(dataModel->dataType == LGModelType::DataModelBar3D) {
         // 3DBar
        
-        LG3DBarModal* bar_modal = (LG3DBarModal*) dataModal;
-        Q3DBars* b = bar_modal->get3DBars();
+        LG3DBarModel* bar_Model = (LG3DBarModel*) dataModel;
+        Q3DBars* b = bar_Model->get3DBars();
         // TODO: 此处不应该为 show 窗口
         ui->gridLayout_2->addWidget(QWidget::createWindowContainer(b));
     }

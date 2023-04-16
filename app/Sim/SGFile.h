@@ -2,11 +2,11 @@
 #define SGFILE_H
 
 #include <QObject>
-#include "SGModalBase.h"
-#include "SGModalRes.h"
-#include "SGModalLine.h"
-#include "SGModalSource.h"
-#include "SGModalGround.h"
+#include "SGModelBase.h"
+#include "SGModelRes.h"
+#include "SGModelLine.h"
+#include "SGModelSource.h"
+#include "SGModelGround.h"
 #include "SGCanvasNotification.h"
 
 
@@ -16,10 +16,10 @@ class SGFile : public QObject
 public:
     explicit SGFile(QObject *parent = nullptr);
 
-    QString saveFile(QList<SGModalBase*>);
-    QList<SGModalBase*> loadFile(QString);
+    QString saveFile(QList<SGModelBase*>);
+    QList<SGModelBase*> loadFile(QString);
     
-    static SGModalBase* createModalBase(SGItemType);
+    static SGModelBase* createModelBase(SGItemType);
     
 signals:
 

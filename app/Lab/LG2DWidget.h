@@ -5,7 +5,7 @@
 
 
 #include "LGStyleCollection.h"
-#include "LGDataModal.h"
+#include "LGDataModel.h"
 
 namespace Ui {
 class LG2DWidget;
@@ -23,7 +23,7 @@ public:
 
     void update();
     
-    LGBaseModal* dataModal;
+    LGBaseModel* dataModel;
     
 private:
     Ui::LG2DWidget *ui;

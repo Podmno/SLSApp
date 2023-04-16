@@ -2,6 +2,8 @@
 #define STFORMEDITOR_H
 
 #include <QWidget>
+#include <QTableView>
+#include <QStandardItemModel>
 
 namespace Ui {
 class STFormEditor;

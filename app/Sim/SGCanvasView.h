@@ -1,13 +1,13 @@
 #ifndef SGCANVASVIEW_H
 #define SGCANVASVIEW_H
 
-#include "SGModalBase.h"
-#include "SGModalRes.h"
-#include "SGModalLine.h"
-#include "SGModalSource.h"
-#include "SGModalGround.h"
+#include "SGModelBase.h"
+#include "SGModelRes.h"
+#include "SGModelLine.h"
+#include "SGModelSource.h"
+#include "SGModelGround.h"
 #include "SGCanvasNotification.h"
-#include "SGEditorModal.h"
+#include "SGEditorModel.h"
 #include "SGFile.h"
 namespace Ui {
 class SGCanvasView;
@@ -88,7 +88,7 @@ private:
     Ui::SGCanvasView *ui;
     
     /// 物品元器件列表
-    QList<SGModalBase*> itemList;
+    QList<SGModelBase*> itemList;
     /// 通知显示栈
     QList<SGCanvasNotification> notificationList;
     
@@ -127,18 +127,18 @@ private:
 // MARK: - 元器件绘图函数
 
     /// 目前正在绘制的元器件指针
-    SGModalBase* currentItemOnDraw;
+    SGModelBase* currentItemOnDraw;
     
     /// 目前正在选取的元器件指针
-    SGModalBase* currentItemOnSelection;
+    SGModelBase* currentItemOnSelection;
     
     SGItemActionType currentItemOnSelectionAction;
     
     /// 验证绘制的元器件是否合法并添加到 Canvas 绘图列表
-    void addCurrentItemToList(SGModalBase*);
+    void addCurrentItemToList(SGModelBase*);
     
     /// 在 Canvas 绘制元器件的创建函数
-    void drawItemOnCanvas(SGModalBase*);
+    void drawItemOnCanvas(SGModelBase*);
     
 // MARK: - Node 信息记录
     

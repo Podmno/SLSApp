@@ -22,14 +22,14 @@ void LG2DWidget::update()
         chartView->setRenderHint(QPainter::Antialiasing);
     }
     
-    if(dataModal->dataType == LGModalType::DataModalBar2D || dataModal->dataType == LGModalType::DataModalPie2D) {
-        LG2DBarModal* modal = (LG2DBarModal*) dataModal;
-        chartView->setChart(modal->getChart());
+    if(dataModel->dataType == LGModelType::DataModelBar2D || dataModel->dataType == LGModelType::DataModelPie2D) {
+        LG2DBarModel* Model = (LG2DBarModel*) dataModel;
+        chartView->setChart(Model->getChart());
     }
     
-    if(dataModal->dataType == LGModalType::DataModalLine2D || dataModal->dataType == LGModalType::DataModalArea2D) {
-        LG2DPointModal* modal = (LG2DPointModal*) dataModal;
-        chartView->setChart(modal->getChart());
+    if(dataModel->dataType == LGModelType::DataModelLine2D || dataModel->dataType == LGModelType::DataModelArea2D) {
+        LG2DPointModel* Model = (LG2DPointModel*) dataModel;
+        chartView->setChart(Model->getChart());
     }
   
      

@@ -71,27 +71,27 @@ static QColor Canvas_ColorOnNormal = QColor(0,0,0);
 static int Canvas_NoticeTimer = 3000;
 
 /// 元器件选择灵敏度 越高越灵敏 默认为 0.07
-static double Canvas_ModalSelectionTurning = 0.07;
+static double Canvas_ModelSelectionTurning = 0.07;
 
 /// 支持的元器件值类型
-enum SGModalValueType {
-    ModalValueTypeBool,
-    ModalValueTypeInt,
-    ModalValueTypeLong,
-    ModalValueTypeFloat,
-    ModalValueTypeDouble,
-    ModalValueTypeString,
+enum SGModelValueType {
+    ModelValueTypeBool,
+    ModelValueTypeInt,
+    ModelValueTypeLong,
+    ModelValueTypeFloat,
+    ModelValueTypeDouble,
+    ModelValueTypeString,
 };
 
-struct SGModalValueDescription {
-    SGModalValueType valueType;
+struct SGModelValueDescription {
+    SGModelValueType valueType;
     QString description;
     
-    SGModalValueDescription() {
+    SGModelValueDescription() {
         
     }
     
-    SGModalValueDescription(SGModalValueType type, QString desp) {
+    SGModelValueDescription(SGModelValueType type, QString desp) {
         valueType = type;
         description = desp;
     }

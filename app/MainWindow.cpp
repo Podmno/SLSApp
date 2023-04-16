@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     
     
-    connect(toolBox, &STToolBox::modalSelected, this, [=](SGItemType type){
+    connect(toolBox, &STToolBox::ModelSelected, this, [=](SGItemType type){
         qDebug() << type;
         canvasView->setFocus();
         

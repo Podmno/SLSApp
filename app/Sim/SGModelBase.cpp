@@ -1,6 +1,6 @@
-#include "SGModalBase.h"
+#include "SGModelBase.h"
 
-SGModalBase::SGModalBase()
+SGModelBase::SGModelBase()
 {
 
     itemType = SGItemType::ItemTypeUnknown;
@@ -13,7 +13,7 @@ SGModalBase::SGModalBase()
     itemIdentifier = "SG.Base";
 }
 
-QColor SGModalBase::getDrawColor()
+QColor SGModelBase::getDrawColor()
 {
     QColor drawColor;
     switch (itemStatus) {
@@ -34,13 +34,13 @@ QColor SGModalBase::getDrawColor()
     return drawColor;
 }
 
-QString SGModalBase::generateUUID() {
+QString SGModelBase::generateUUID() {
 
     QUuid id = QUuid::createUuid();
     return id.toString();
 }
 
-SGItemActionType SGModalBase::onPlaceItemAction(QPointF itemPlace, SGCanvasViewInfo viewInfo)
+SGItemActionType SGModelBase::onPlaceItemAction(QPointF itemPlace, SGCanvasViewInfo viewInfo)
 {
     // 快速优化判断 如果离得太远太离谱就直接 bu zai
     SGNode mouseNode = SGCanvasUtil::pointToSGNode(itemPlace, viewInfo);
@@ -96,7 +96,7 @@ SGItemActionType SGModalBase::onPlaceItemAction(QPointF itemPlace, SGCanvasViewI
     return SGItemActionType::ItemActionNoAction;
 }
 
-QJsonObject SGModalBase::convertToJson()
+QJsonObject SGModelBase::convertToJson()
 {
     QJsonObject contentJson;
     
@@ -108,16 +108,16 @@ QJsonObject SGModalBase::convertToJson()
     contentJson.insert("rightX", itemRightVertex.X);
     contentJson.insert("rightY", itemRightVertex.Y);
     QJsonArray jsonArray;
-    for(QString value : modalValue) {
+    for(QString value : ModelValue) {
         jsonArray.append(value);
     }
-    contentJson.insert("modalValue", jsonArray);
+    contentJson.insert("ModelValue", jsonArray);
     
     //return QString(QJsonDocument(contentJson).toJson());
     return contentJson;
 }
 
-void SGModalBase::loadFromJson(QJsonObject jsonObject)
+void SGModelBase::loadFromJson(QJsonObject jsonObject)
 {
 
     itemIdentifier = jsonObject.value("identifier").toString();
@@ -127,14 +127,14 @@ void SGModalBase::loadFromJson(QJsonObject jsonObject)
     itemRightVertex.X = jsonObject.value("rightX").toInt();
     itemLeftVertex.Y = jsonObject.value("leftY").toInt();
     itemRightVertex.Y = jsonObject.value("rightY").toInt();
-    QJsonArray array = jsonObject.value("modalValue").toArray();
+    QJsonArray array = jsonObject.value("ModelValue").toArray();
     for(QJsonValue v : array) {
-        modalValue.append(v.toString());
+        ModelValue.append(v.toString());
     }
     
 }
 
-void SGModalBase::drawItem(QWidget *paintWidget, SGCanvasViewInfo viewInfo)
+void SGModelBase::drawItem(QWidget *paintWidget, SGCanvasViewInfo viewInfo)
 {
 
 }
@@ -142,7 +142,7 @@ void SGModalBase::drawItem(QWidget *paintWidget, SGCanvasViewInfo viewInfo)
 /*
  * 去除 BaseItem 的绘图能力
  *
-void SGModalBase::drawItem(QWidget* paintWidget,SGCanvasViewInfo info)
+void SGModelBase::drawItem(QWidget* paintWidget,SGCanvasViewInfo info)
 {
     // placeX 物体的 X 坐标 / Y 坐标 绘图位置
 

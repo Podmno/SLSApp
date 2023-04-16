@@ -34,21 +34,21 @@ set(PROJECT_SOURCES_SIM
 
         Sim/SGHeaders.h Sim/SGHeaders.cpp
         Sim/SGFile.h Sim/SGFile.cpp
-        Sim/SGModalBase.h Sim/SGModalBase.cpp
-        Sim/SGModalGround.h Sim/SGModalGround.cpp
-        Sim/SGModalLine.h Sim/SGModalLine.cpp
-        Sim/SGModalRes.h Sim/SGModalRes.cpp
-        Sim/SGModalSource.h Sim/SGModalSource.cpp
+        Sim/SGModelBase.h Sim/SGModelBase.cpp
+        Sim/SGModelGround.h Sim/SGModelGround.cpp
+        Sim/SGModelLine.h Sim/SGModelLine.cpp
+        Sim/SGModelRes.h Sim/SGModelRes.cpp
+        Sim/SGModelSource.h Sim/SGModelSource.cpp
         Sim/SGCanvasNotification.h Sim/SGCanvasNotification.cpp Sim/SGCanvasNotification.ui
         Sim/SGCanvasView.h Sim/SGCanvasView.cpp Sim/SGCanvasView.ui
-        Sim/SGEditorModal.h Sim/SGEditorModal.cpp Sim/SGEditorModal.ui
+        Sim/SGEditorModel.h Sim/SGEditorModel.cpp Sim/SGEditorModel.ui
 )
 
 set(PROJECT_SOURCES_LAB 
 
         Lab/LG2DWidget.h Lab/LG2DWidget.cpp Lab/LG2DWidget.ui
         Lab/LG3DWidget.h Lab/LG3DWidget.cpp Lab/LG3DWidget.ui
-        Lab/LGDataModal.h Lab/LGDataModal.cpp
+        Lab/LGDataModel.h Lab/LGDataModel.cpp
         Lab/LGStyleCollection.h Lab/LGStyleCollection.cpp
 )
 

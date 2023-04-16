@@ -27,7 +27,7 @@ private:
 signals:
     
     /// 选择的元器件响应
-    void modalSelected(SGItemType);
+    void ModelSelected(SGItemType);
 };
 
 #endif // STTOOLBOX_H

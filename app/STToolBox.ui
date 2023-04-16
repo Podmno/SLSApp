@@ -85,7 +85,7 @@ background: transparent;
               </property>
               <layout class="QGridLayout" name="gridLayout_2">
                <item row="0" column="0">
-                <layout class="QVBoxLayout" name="layoutContentModal"/>
+                <layout class="QVBoxLayout" name="layoutContentModel"/>
                </item>
               </layout>
              </widget>

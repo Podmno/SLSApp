@@ -151,13 +151,13 @@ void SGCanvasView::drawColLines(QPainter* p)
 void SGCanvasView::drawItems()
 {
     for(int k = 0; k<itemList.size() ; k++) {
-        SGModalBase *i = itemList.at(k);
+        SGModelBase *i = itemList.at(k);
         drawItemOnCanvas(i);
     }
 }
 
 // 元器件类型判断与注册中心
-void SGCanvasView::drawItemOnCanvas(SGModalBase* item)
+void SGCanvasView::drawItemOnCanvas(SGModelBase* item)
 {
     
     if(item == nullptr) {
@@ -185,11 +185,11 @@ void SGCanvasView::drawItemOnCanvas(SGModalBase* item)
 void SGCanvasView::setItemPrepareToDraw(SGItemType type)
 {
     
-    currentItemOnDraw = SGFile::createModalBase(type);
+    currentItemOnDraw = SGFile::createModelBase(type);
 
 }
 
-void SGCanvasView::addCurrentItemToList(SGModalBase* item)
+void SGCanvasView::addCurrentItemToList(SGModelBase* item)
 {
     // TODO: 加入物件的上限设置
     if(item == nullptr) {
@@ -318,7 +318,7 @@ void SGCanvasView::mousePressEvent(QMouseEvent* event)
                 
                 if(currentItemOnSelection == nullptr) {
                     
-                    for(SGModalBase* bs : itemList) {
+                    for(SGModelBase* bs : itemList) {
                         SGItemActionType type = bs->onPlaceItemAction(currentPoint, viewInfo);
                         
                         if(type == SGItemActionType::ItemActionNoAction) {
@@ -414,7 +414,7 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
         }
         
         // 重置
-        for(SGModalBase* base : itemList) {
+        for(SGModelBase* base : itemList) {
             base->itemStatus = SGItemStatus::ItemStatusOnNormal;
         }
         mousePressNodeStart.X = INT_MAX;
@@ -435,12 +435,12 @@ void SGCanvasView::mouseDoubleClickEvent(QMouseEvent* event)
     if(event->button() == Qt::LeftButton) {
         
         if(canvasStatus == SGCanvasViewStatus::CanvasStatusNormal) {
-            for(SGModalBase* base : itemList) {
+            for(SGModelBase* base : itemList) {
                 if(base->onPlaceItemAction(currentPoint, viewInfo) != SGItemActionType::ItemActionNoAction) {
                     base->itemStatus = SGItemStatus::ItemStatusOnSelect;
                     currentItemOnSelection = base;
-                    SGEditorModal* md = new SGEditorModal();
-                    md->setModalPointer(base);
+                    SGEditorModel* md = new SGEditorModel();
+                    md->setModelPointer(base);
                     md->showEditor();
                     base->itemStatus = SGItemStatus::ItemStatusOnNormal;
                     currentItemOnSelection = nullptr;
@@ -469,8 +469,8 @@ QString SGCanvasView::saveCanvasFile()
 void SGCanvasView::loadCanvasFile(QString fileContent)
 {
     
-    for(SGModalBase* modal : itemList) {
-        delete modal;
+    for(SGModelBase* Model : itemList) {
+        delete Model;
     }
     
     itemList.empty();
