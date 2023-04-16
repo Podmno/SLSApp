@@ -14,10 +14,15 @@ class SGCanvasView;
 }
 
 enum SGCanvasViewStatus {
+    /// 标准模式
     CanvasStatusNormal,
+    /// 编辑模式
     CanvasStatusEditing,
+    /// 阅览模式
     CanvasStatusViewing,
+    /// 单选模式
     CanvasStatusSelecting,
+    /// 多选模式
     CanvasStatusMultiSelecting
 };
 

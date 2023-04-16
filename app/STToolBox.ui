@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QGridLayout" name="gridLayout_6">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -26,10 +26,16 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
       <widget class="QTabWidget" name="tabWidget">
+       <property name="styleSheet">
+        <string notr="true">QTabWidget::pane {
+border: 0;
+background-color: white;
+}</string>
+       </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
@@ -43,11 +49,28 @@
         <attribute name="title">
          <string>元器件</string>
         </attribute>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
             <widget class="QScrollArea" name="scrollArea">
+             <property name="styleSheet">
+              <string notr="true">QScroolArea {
+background: transparent;
+}</string>
+             </property>
              <property name="widgetResizable">
               <bool>true</bool>
              </property>
@@ -56,12 +79,12 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>200</width>
-                <height>294</height>
+                <width>246</width>
+                <height>334</height>
                </rect>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
-               <item>
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="0">
                 <layout class="QVBoxLayout" name="layoutContentModal"/>
                </item>
               </layout>
@@ -82,8 +105,20 @@
         <attribute name="title">
          <string>自定义</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
           <layout class="QVBoxLayout" name="verticalLayout"/>
          </item>
         </layout>

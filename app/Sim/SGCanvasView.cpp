@@ -493,10 +493,13 @@ void SGCanvasView::setCanvasCurrentStatus(SGCanvasViewStatus s)
             showNotification("编辑模式");
             break;
         case SGCanvasViewStatus::CanvasStatusViewing:
-            showNotification("阅览模式");
+            showNotification("查看模式");
             break;
         case SGCanvasViewStatus::CanvasStatusSelecting:
             showNotification("选择模式");
+            break;
+        case SGCanvasViewStatus::CanvasStatusMultiSelecting:
+            showNotification("多选模式");
             break;
         default:
             break;
@@ -519,9 +522,13 @@ SGCanvasView::~SGCanvasView()
 
 void SGCanvasView::onZoomIncreaseClicked()
 {
+    qDebug() << "onZoomIncreaseClicked";
+    qDebug() << Canvas_GapScaleSize;
+    qDebug() << viewInfo.gap << " < " << maxGap;
     if(viewInfo.gap < maxGap) {
-        viewInfo.gap += Canvas_GapScaleSize;
+        viewInfo.gap = viewInfo.gap + Canvas_GapScaleSize;
     }
+    qDebug() << viewInfo.gap << " < " << maxGap;
     update();
 }
 
@@ -529,7 +536,7 @@ void SGCanvasView::onZoomIncreaseClicked()
 void SGCanvasView::onZoomDecreaseClicked()
 {
     if(viewInfo.gap > minGap) {
-        viewInfo.gap -= Canvas_GapScaleSize;
+        viewInfo.gap = viewInfo.gap - Canvas_GapScaleSize;
     }
     
     update();

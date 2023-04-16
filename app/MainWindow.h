@@ -5,7 +5,7 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QPushButton>
-
+#include <QPalette>
 #include "STNewProject.h"
 #include "STFileManager.h"
 #include "Sim/SGCanvasView.h"

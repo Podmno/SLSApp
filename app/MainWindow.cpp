@@ -33,17 +33,14 @@ MainWindow::MainWindow(QWidget *parent)
     initMenuBar();
     removeDockWidgetTitleBar();
     
-    QDockWidget* dockWidgetToolBox = new QDockWidget(this);
-    dockWidgetToolBox->setWindowTitle("工具箱");
-    dockWidgetToolBox->setWidget(toolBox);
-    this->addDockWidget(Qt::RightDockWidgetArea, dockWidgetToolBox);
+
     
-    QDockWidget* dockWidgetFormEditor = new QDockWidget(this);
-    dockWidgetFormEditor->setWindowTitle("表格编辑器");
-    dockWidgetFormEditor->setWidget(formEditor);
-    this->addDockWidget(Qt::RightDockWidgetArea, dockWidgetFormEditor);
+    ui->dockWidget_2->setWidget(toolBox);
+    ui->dockWidget_3->setWidget(formEditor);
     
     ui->gridLayout_2->addWidget(canvasView);
+    
+    
     
     
     connect(toolBox, &STToolBox::modalSelected, this, [=](SGItemType type){
@@ -79,12 +76,7 @@ void MainWindow::initMenuBar()
         canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusNormal);
     });
 
-    auto button_copy = createToolButton("复制",":/pic/Res/copy.png");
-    ui->toolBar->addWidget(button_copy);
-    
 
-    auto button_paste = createToolButton("粘贴",":/pic/Res/paste.png");
-    ui->toolBar->addWidget(button_paste);
 
     auto button_select = createToolButton("选择",":/pic/Res/select.png");
     ui->toolBar->addWidget(button_select);
@@ -92,17 +84,35 @@ void MainWindow::initMenuBar()
         canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusSelecting);
     });
     
+    auto button_view = createToolButton("查看",":/pic/Res/hand.png");
+    ui->toolBar->addWidget(button_view);
+    connect(button_view, &QPushButton::clicked, this, [=](){
+        canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusViewing);
+    });
+    
+    ui->toolBar->addSeparator();
+    
+    
+    
+    auto button_copy = createToolButton("复制",":/pic/Res/copy.png");
+    ui->toolBar->addWidget(button_copy);
+    
+
+    auto button_paste = createToolButton("粘贴",":/pic/Res/paste.png");
+    ui->toolBar->addWidget(button_paste);
+    
     ui->toolBar->addSeparator();
     
     auto button_zoomin = createToolButton("放大",":/pic/Res/zoom_add.png");
     connect(button_zoomin, &QPushButton::clicked, this, [=](){
+        
         canvasView->onZoomIncreaseClicked();
     });
     ui->toolBar->addWidget(button_zoomin);
     
     auto button_zoomout = createToolButton("缩小",":/pic/Res/zoom_minus.png");
     ui->toolBar->addWidget(button_zoomout);
-    connect(button_zoomin, &QPushButton::clicked, this, [=](){
+    connect(button_zoomout, &QPushButton::clicked, this, [=](){
         canvasView->onZoomDecreaseClicked();
     });
     
@@ -110,9 +120,30 @@ void MainWindow::initMenuBar()
 
     QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect(this);
     shadowEffect->setColor(QColor(171,171,171));
-    shadowEffect->setBlurRadius(40);
-    shadowEffect->setOffset(0,1);
+    //shadowEffect->setBlurRadius(40);
+    shadowEffect->setOffset(0,0.5);
     ui->toolBar->setGraphicsEffect(shadowEffect);
+    
+    
+    QGraphicsDropShadowEffect* shadowEffect2 = new QGraphicsDropShadowEffect(this);
+    shadowEffect2->setColor(QColor(171,171,171));
+    //shadowEffect->setBlurRadius(40);
+    shadowEffect2->setOffset(0,-0.5);
+    ui->statusbar->setGraphicsEffect(shadowEffect2);
+    
+    
+    //this->setStyleSheet("QDockWidget#"+ui->dockWidget_2->objectName()+"::title {background-color: white; }");
+    
+    QPalette pal;
+
+    pal.setColor(QPalette::Window, Qt::white);
+    ui->dockWidget_2->setAutoFillBackground(true);
+    ui->dockWidget_2->setPalette(pal);
+
+    ui->dockWidget_3->setAutoFillBackground(true);
+    ui->dockWidget_3->setPalette(pal);
+    
+
 
 }
 

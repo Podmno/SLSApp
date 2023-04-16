@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::STFormEditor *ui;
+    
+    void initForm();
 };
 
 #endif // STFORMEDITOR_H
