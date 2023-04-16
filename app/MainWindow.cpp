@@ -116,6 +116,7 @@ void MainWindow::removeDockWidgetTitleBar()
     ui->dockWidget->setTitleBarWidget(lEmptyWidget);
     delete lTitleBar;
 
+    // MacEdit
     setUnifiedTitleAndToolBarOnMac(true);
 
 }
