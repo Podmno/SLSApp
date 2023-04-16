@@ -2,6 +2,8 @@
 #include "ui_SGCanvasView.h"
 
 
+// TODO: BUG 在绘制元器件时元器件会有错误着色
+
 SGCanvasView::SGCanvasView(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SGCanvasView)
@@ -95,7 +97,17 @@ void SGCanvasView::mouseMoveEvent(QMouseEvent* e)
     QPointF pos = e->position();
     
     sendCurrentMousePoint(mapTo(this, pos));
+    
+    if(canvasStatus == SGCanvasViewStatus::CanvasStatusViewing) {
+        // 查看模式
+        
+        viewInfo.centerX = originalCenterPointX + currentPoint.x() - recordReleventPointX;
+        viewInfo.centerY = originalCenterPointY + currentPoint.y() - recordReleventPointY;
+        
+    }
+    
     update();
+    repaint();
     // repaint()
 }
 
@@ -270,8 +282,10 @@ void SGCanvasView::paintEvent(QPaintEvent *event)
             }
             
             if(canvasStatus == SGCanvasViewStatus::CanvasStatusNormal) {
-                // TODO: 绘图时显示顶点功能待实现
+
             }
+            
+ 
             
         }
         
@@ -309,10 +323,7 @@ void SGCanvasView::mousePressEvent(QMouseEvent* event)
                 // 返回普通模式
                 // canvasStatus = SGCanvasViewStatus::Normal;
                 
-            case SGCanvasViewStatus::CanvasStatusViewing:
-                // 鼠标拖拽中
-                
-                break;
+
 
             case SGCanvasViewStatus::CanvasStatusNormal:
                 
@@ -338,6 +349,20 @@ void SGCanvasView::mousePressEvent(QMouseEvent* event)
                 
                 break;
                 
+            case SGCanvasViewStatus::CanvasStatusViewing:
+                // 鼠标拖拽中
+                
+
+                
+                originalCenterPointX = viewInfo.centerX;
+                originalCenterPointY = viewInfo.centerY;
+                
+                recordReleventPointX = currentPoint.x();
+                recordReleventPointY = currentPoint.y();
+                
+                
+                break;
+            
             default:
                 break;
         }
@@ -373,11 +398,6 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
                 qDebug() << "End " << recordNodeEnd.X << ", " << recordNodeEnd.Y;
                 
                 break;
-            case SGCanvasViewStatus::CanvasStatusViewing:
-                
-                // 鼠标拖拽事件结束
-                
-                break;
                 
             case SGCanvasViewStatus::CanvasStatusNormal:
                 if(currentItemOnSelection == nullptr) {
@@ -409,6 +429,14 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
                 
                 
                 break;
+                
+            case SGCanvasViewStatus::CanvasStatusViewing:
+
+                recordReleventPointX = 0;
+                recordReleventPointY = 0;
+                
+                break;
+                
             default:
                 break;
         }
@@ -522,13 +550,10 @@ SGCanvasView::~SGCanvasView()
 
 void SGCanvasView::onZoomIncreaseClicked()
 {
-    qDebug() << "onZoomIncreaseClicked";
-    qDebug() << Canvas_GapScaleSize;
-    qDebug() << viewInfo.gap << " < " << maxGap;
+
     if(viewInfo.gap < maxGap) {
         viewInfo.gap = viewInfo.gap + Canvas_GapScaleSize;
     }
-    qDebug() << viewInfo.gap << " < " << maxGap;
     update();
 }
 

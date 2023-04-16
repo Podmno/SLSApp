@@ -158,6 +158,15 @@ private:
     // 记录移动元器件时的初始位置记录
     SGNode recordNodeSelection;
     
+    
+    // 记录鼠标按下时的相对坐标位置
+    float recordReleventPointX;
+    float recordReleventPointY;
+    
+    // 原始位置
+    float originalCenterPointX;
+    float originalCenterPointY;
+    
 
 protected:
 // MARK: - 鼠标事件监听
