@@ -122,6 +122,9 @@ private:
     // 输出 Canvas 的基本 Grid 信息
     void outputCanvasGridInfo();
     
+    // 计算模拟时的顶点位置
+    void calcSimulationNode();
+    
     /// 通知组件
     SGCanvasNotification* notification;
     

@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     canvasView = new SGCanvasView(this);
     formEditor = new STFormEditor(this);
     simulationView = new STSimulation(this);
+    netlistHelper = new SCNetlist();
+    
     ui->tabWidget->addTab(widgetFileManager, "浏览");
     ui->tabWidget->addTab(simulationView, "模拟");
 
@@ -43,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout_2->addWidget(canvasView);
     
     
-    
-    
     connect(toolBox, &STToolBox::ModelSelected, this, [=](SGItemType type){
         qDebug() << type;
         canvasView->setFocus();
@@ -53,11 +53,14 @@ MainWindow::MainWindow(QWidget *parent)
         canvasView->setItemPrepareToDraw(type);
     });
     
+    connect(netlistHelper, &SCNetlist::signalResolveInformation, this, [=](QString msg){
+        simulationView->addNewInformation(msg);
+    });
+    
     connect(simulationView, &STSimulation::startSimulation, this, [=](){
         qDebug() << "SLS > Start Simulation";
         
-        SCNetlist* netlist = new SCNetlist();
-        netlist->resolveFromModelList(canvasView->itemList);
+        netlistHelper->resolveFromModelList(canvasView->itemList);
         
         //netlist->resolveFromModelList(can)
         //netlist->resolveFromModelList(canvasView->item)

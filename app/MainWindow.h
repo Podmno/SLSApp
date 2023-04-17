@@ -39,6 +39,8 @@ private:
     STFormEditor* formEditor;
     SGCanvasView* canvasView;
     STSimulation* simulationView;
+    SCNetlist* netlistHelper;
+    
     void initMenuBar();
     void removeDockWidgetTitleBar();
     QToolButton* createToolButton(QString, QString);

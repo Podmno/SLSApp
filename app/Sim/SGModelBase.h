@@ -33,6 +33,11 @@ public:
     /// 右侧顶点位置
     QPoint itemRightVertex;
     
+    /// 左侧的模拟顶点位置
+    QPoint simulationLeftVertex;
+    /// 右侧的模拟顶点位置
+    QPoint simulationRightVertex;
+    
     /// 物件的 UUID 号码
     QString itemUUID;
 

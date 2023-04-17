@@ -8,6 +8,8 @@ SGModelBase::SGModelBase()
     itemRightVertex.setX(INT_MAX);
     itemLeftVertex.setY(INT_MAX);
     itemRightVertex.setY(INT_MAX);
+    simulationLeftVertex.setX(INT_MAX);
+    simulationRightVertex.setX(INT_MAX);
     itemStatus = SGItemStatus::ItemStatusOnNormal;
     itemUUID = generateUUID();
     itemIdentifier = "SG.Base";

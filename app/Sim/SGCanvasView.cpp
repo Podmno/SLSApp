@@ -208,7 +208,11 @@ void SGCanvasView::addCurrentItemToList(SGModelBase* item)
         qDebug() << "[ERR] Unrecognized item.";
     }
     
+    currentItemOnDraw->simulationLeftVertex = currentItemOnDraw->itemLeftVertex;
+    currentItemOnDraw->simulationRightVertex = currentItemOnDraw->itemRightVertex;
+    
     itemList.append(currentItemOnDraw);
+    calcSimulationNode();
     
     // 可以在此设计阻止接连绘画的逻辑
     setItemPrepareToDraw(item->itemType);
@@ -232,6 +236,66 @@ void SGCanvasView::outputCanvasGridInfo()
     qDebug() << "Grid(0,0) Y: " << SGCanvasUtil::gridSGToPoint(centerNode, viewInfo).y();
 
     
+}
+
+void SGCanvasView::calcSimulationNode()
+{
+    if(currentItemOnDraw->itemType != SGItemType::ItemTypeLine) {
+        return;
+    }
+
+    for(SGModelBase* ms : itemList) {
+        
+
+            for(SGModelBase* md_edit : itemList) {
+                
+                if(md_edit->itemType == SGItemType::ItemTypeLine) {
+                    continue;
+                }
+                
+                if(md_edit->itemUUID == ms->itemUUID) {
+                    // 重复过滤
+                    continue;
+                }
+                
+                if(ms->itemIdentifier == "0") {
+                    continue;
+                }
+                
+                if(md_edit->simulationLeftVertex == ms->itemLeftVertex) {
+                    md_edit->simulationLeftVertex = ms->itemRightVertex;
+                    ms->itemIdentifier = "0";
+                    qDebug() << "EditedR1 : " << md_edit->itemType << ":" << md_edit->simulationLeftVertex << "," << md_edit->simulationRightVertex;
+                    continue;
+                }
+                
+                if(md_edit->simulationRightVertex == ms->itemLeftVertex) {
+                    md_edit->simulationRightVertex = ms->itemRightVertex;
+                    ms->itemIdentifier = "0";
+                    qDebug() << "EditedR2 : " << md_edit->itemType << ":"<< md_edit->simulationLeftVertex << "," << md_edit->simulationRightVertex;
+                    continue;
+                }
+                
+                if(md_edit->simulationLeftVertex == ms->itemRightVertex) {
+                    md_edit->simulationLeftVertex = ms->itemLeftVertex;
+                    ms->itemIdentifier = "0";
+                    qDebug() << "EditedR3 : " << md_edit->itemType << ":"<< md_edit->simulationLeftVertex << "," << md_edit->simulationRightVertex;
+                    continue;
+                }
+                
+    
+                if(md_edit->simulationRightVertex == ms->itemRightVertex) {
+                    md_edit->simulationRightVertex = ms->itemLeftVertex;
+                    ms->itemIdentifier = "0";
+                    qDebug() << "EditedR4 : " << md_edit->itemType << ":"<< md_edit->simulationLeftVertex << "," << md_edit->simulationRightVertex;
+                    continue;
+ 
+                }
+                
+            }
+            
+        
+    }
 }
 
 

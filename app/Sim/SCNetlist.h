@@ -11,6 +11,7 @@
 #include <QObject>
 #include "SCHeader.h"
 #include "SGFile.h"
+#include "SCSimulation.h"
 
 /**
  Netlist 元件信息
@@ -21,19 +22,24 @@ struct SCNodeDataSummary {
     
     int nodeID;
     
+    QString nodeCanvasPlace;
+    
     /// 与此节点连接的所有其他 BaseModel 的指针
     QList<SGModelBase*> nodeModelList;
     
 };
 
 /// Netlist 解析工具
-class SCNetlist
+class SCNetlist : public QObject
 {
+    Q_OBJECT
 public:
-    SCNetlist();
+    explicit SCNetlist(QObject *parent = nullptr);
     
     void resolveFromModelList(QList<SGModelBase*> modelList);
     
+signals:
+    void signalResolveInformation(QString);
 };
 
 #endif /* SCNetlist_h */
