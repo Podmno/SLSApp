@@ -42,6 +42,12 @@ set(PROJECT_SOURCES_SIM
         Sim/SGCanvasNotification.h Sim/SGCanvasNotification.cpp Sim/SGCanvasNotification.ui
         Sim/SGCanvasView.h Sim/SGCanvasView.cpp Sim/SGCanvasView.ui
         Sim/SGEditorModel.h Sim/SGEditorModel.cpp Sim/SGEditorModel.ui
+        Sim/SCHeader.h
+        Sim/SCConsole.h Sim/SCConsole.cpp
+        Sim/SCNetlist.h Sim/SCNetlist.cpp
+        Sim/SCSimulation.h Sim/SCSimulation.cpp
+        Sim/SCMatrixResolve.h Sim/SCMatrixResolve.cpp
+        Sim/SCSpice.h Sim/SCSpice.cpp
 )
 
 set(PROJECT_SOURCES_LAB 
@@ -77,7 +83,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     add_custom_command(
             TARGET SLS
             POST_BUILD
-            COMMAND plutil -replace NSRequiresAquaSystemAppearance -bool true ./Debug/SLS.app/Contents/Info.plist
+            COMMAND plutil -replace NSRequiresAquaSystemAppearance -bool true ./SLS.app/Contents/Info.plist
     )
 endif()
 

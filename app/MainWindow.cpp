@@ -95,10 +95,12 @@ void MainWindow::initMenuBar()
     
     
     auto button_copy = createToolButton("复制",":/pic/Res/copy.png");
+    button_copy->setEnabled(false);
     ui->toolBar->addWidget(button_copy);
     
 
     auto button_paste = createToolButton("粘贴",":/pic/Res/paste.png");
+    button_paste->setEnabled(false);
     ui->toolBar->addWidget(button_paste);
     
     ui->toolBar->addSeparator();
@@ -142,9 +144,30 @@ void MainWindow::initMenuBar()
 
     ui->dockWidget_3->setAutoFillBackground(true);
     ui->dockWidget_3->setPalette(pal);
-    
 
-
+    connect(ui->verticalScrollBar, &QScrollBar::valueChanged, canvasView, &SGCanvasView::onScroolVerticalChanged);
+    connect(ui->horizontalScrollBar, &QScrollBar::valueChanged, canvasView, &SGCanvasView::onScroolHorizontalChanged);
+    connect(ui->actionOpen_Project, &QAction::triggered, this, [=](){
+        qDebug() << "SLS > Open Project";
+        QString fileName = QFileDialog::getOpenFileName(this,"Select .sls file","/",tr("SLS File(*.sls)"));
+        QFile file(fileName);
+        if (fileName.isEmpty()) {
+            return;
+        } else {
+            QString reply;
+            if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                canvasView->showNotification("无法读取文件");
+            }
+            while(!file.atEnd())
+            {
+                QByteArray line = file.readLine();
+                QString str(line);
+                reply.append(str);
+            }
+            // 读取完成
+            canvasView->loadCanvasFile(reply);
+    }});
 }
 
 void MainWindow::removeDockWidgetTitleBar()
