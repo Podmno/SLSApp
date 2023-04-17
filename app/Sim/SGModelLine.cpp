@@ -8,7 +8,7 @@ SGModelLine::SGModelLine()
 
 void SGModelLine::drawItem(QWidget *paintWidget, SGCanvasViewInfo viewInfo)
 {
-    if(itemLeftVertex.X == INT_MAX || itemLeftVertex.X == INT_MAX || itemRightVertex.X == INT_MAX || itemRightVertex.Y == INT_MAX){
+    if(itemLeftVertex.x() == INT_MAX || itemLeftVertex.x() == INT_MAX || itemRightVertex.x() == INT_MAX || itemRightVertex.y() == INT_MAX){
         return;
     }
 

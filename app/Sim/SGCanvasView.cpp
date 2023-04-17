@@ -30,8 +30,8 @@ SGCanvasView::SGCanvasView(QWidget *parent) :
     darkPen = QPen(Canvas_GridColor);
     darkPen.setWidth(Canvas_GridWidth);
     
-    currentGridRelevent.X = INT_MAX;
-    currentGridRelevent.Y = INT_MAX;
+    currentGridRelevent.setX(INT_MAX);
+    currentGridRelevent.setY(INT_MAX);
 
     viewInfo.originalX = viewInfo.centerX;
     viewInfo.originalY = viewInfo.centerY;
@@ -62,14 +62,14 @@ void SGCanvasView::drawGridRectangle(int x, int y)
     painter.drawRect(viewInfo.centerX+x*viewInfo.gap,viewInfo.centerY+y*viewInfo.gap,viewInfo.gap,viewInfo.gap);
 }
 
-void SGCanvasView::drawNodeAtPoint(SGNode node)
+void SGCanvasView::drawNodeAtPoint(QPoint node)
 {
-    if(node.X >= INT_MAX || node.Y >= INT_MAX) {
+    if(node.x() >= INT_MAX || node.y() >= INT_MAX) {
         return;
     }
     
-    float draw_grid_pos_x = (float)node.X * viewInfo.gap + viewInfo.centerX - 5.0;
-    float draw_grid_pos_y = (-(float)node.Y * viewInfo.gap) + viewInfo.centerY - 5.0;
+    float draw_grid_pos_x = (float)node.x() * viewInfo.gap + viewInfo.centerX - 5.0;
+    float draw_grid_pos_y = (-(float)node.y() * viewInfo.gap) + viewInfo.centerY - 5.0;
     
     QPen pen;
     pen.setColor(QColor(0,127,220));
@@ -178,10 +178,10 @@ void SGCanvasView::drawItemOnCanvas(SGModelBase* item)
         return;
     }
 
-    if(item->itemLeftVertex.X == INT_MAX ||
-        item->itemLeftVertex.Y == INT_MAX ||
-        item->itemRightVertex.X == INT_MAX ||
-        item->itemRightVertex.Y == INT_MAX) {
+    if(item->itemLeftVertex.x() == INT_MAX ||
+        item->itemLeftVertex.y() == INT_MAX ||
+        item->itemRightVertex.x() == INT_MAX ||
+        item->itemRightVertex.y() == INT_MAX) {
         return;
     }
     
@@ -225,9 +225,9 @@ void SGCanvasView::outputCanvasGridInfo()
     
     qDebug() << "Single Grip Gap: " << viewInfo.gap;
     
-    SGGrid centerNode;
-    centerNode.X = 0;
-    centerNode.Y = 0;
+    QPoint centerNode;
+    centerNode.setX(0);
+    centerNode.setY(0);
     qDebug() << "Grid(0,0) X: " << SGCanvasUtil::gridSGToPoint(centerNode, viewInfo).x();
     qDebug() << "Grid(0,0) Y: " << SGCanvasUtil::gridSGToPoint(centerNode, viewInfo).y();
 
@@ -268,7 +268,7 @@ void SGCanvasView::paintEvent(QPaintEvent *event)
     this->drawRowLines(&painter);
     
     if(Canvas_ShowGridDisplay) {
-        this->drawGridRectangle(currentGridRelevent.X, currentGridRelevent.Y);
+        this->drawGridRectangle(currentGridRelevent.x(), currentGridRelevent.y());
     }
     
     if(Canvas_ShowNodeDisplay) {
@@ -277,8 +277,8 @@ void SGCanvasView::paintEvent(QPaintEvent *event)
                 this->drawNodeAtPoint(currentNode);
                 this->drawNodeAtPoint(mousePressNodeStart);
                 this->drawNodeAtPoint(mousePressNodeEnd);
-                currentItemOnDraw->itemRightVertex.X = currentNode.X;
-                currentItemOnDraw->itemRightVertex.Y = currentNode.Y;
+                currentItemOnDraw->itemRightVertex.setX(currentNode.x());
+                currentItemOnDraw->itemRightVertex.setY(currentNode.y());
             }
             
             if(canvasStatus == SGCanvasViewStatus::CanvasStatusNormal) {
@@ -309,16 +309,16 @@ void SGCanvasView::mousePressEvent(QMouseEvent* event)
                 showNodeOnCanvas = true;
                 //mousePressNodeStart.X
                 
-                mousePressNodeStart.X = currentNode.X;
-                mousePressNodeStart.Y = currentNode.Y;
+                mousePressNodeStart.setX(currentNode.x());
+                mousePressNodeStart.setY(currentNode.y());
                 
-                qDebug() << "mousePressNodeStart: " << mousePressNodeStart.X << "," << mousePressNodeStart.Y;
+                qDebug() << "mousePressNodeStart: " << mousePressNodeStart.x() << "," << mousePressNodeStart.y();
                 
                 // FIXME: 此处注意可能会访问到空指针
-                currentItemOnDraw->itemLeftVertex.X = mousePressNodeStart.X;
-                currentItemOnDraw->itemLeftVertex.Y = mousePressNodeStart.Y;
-                currentItemOnDraw->itemRightVertex.X = INT_MAX;
-                currentItemOnDraw->itemRightVertex.Y = INT_MAX;
+                currentItemOnDraw->itemLeftVertex.setX(mousePressNodeStart.x());
+                currentItemOnDraw->itemLeftVertex.setY(mousePressNodeStart.y());
+                currentItemOnDraw->itemRightVertex.setX(INT_MAX);
+                currentItemOnDraw->itemRightVertex.setY(INT_MAX);
                 
                 // 返回普通模式
                 // canvasStatus = SGCanvasViewStatus::Normal;
@@ -381,21 +381,21 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
             
                 
                 showNodeOnCanvas = false;
-                mousePressNodeEnd.X = currentNode.X;
-                mousePressNodeEnd.Y = currentNode.Y;
+                mousePressNodeEnd.setX(currentNode.x());
+                mousePressNodeEnd.setY(currentNode.y());
                 recordNodeStart = mousePressNodeStart;
                 recordNodeEnd = mousePressNodeEnd;
                 
 
-                currentItemOnDraw->itemRightVertex.X = recordNodeEnd.X;
-                currentItemOnDraw->itemRightVertex.Y = recordNodeEnd.Y;
+                currentItemOnDraw->itemRightVertex.setX(recordNodeEnd.x());
+                currentItemOnDraw->itemRightVertex.setY(recordNodeEnd.y());
                 
                 
                 addCurrentItemToList(currentItemOnDraw);
                 
                 
-                qDebug() << "Start " << recordNodeStart.X << ", " << recordNodeStart.Y;
-                qDebug() << "End " << recordNodeEnd.X << ", " << recordNodeEnd.Y;
+                qDebug() << "Start " << recordNodeStart.x() << ", " << recordNodeStart.y();
+                qDebug() << "End " << recordNodeEnd.x() << ", " << recordNodeEnd.y();
                 
                 break;
                 
@@ -416,13 +416,13 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
                 
                 if(currentItemOnSelectionAction == SGItemActionType::ItemActionOnItemMoveAction) {
                     
-                    int relevent_x = currentNode.X - recordNodeSelection.X;
-                    int relevent_y = currentNode.Y - recordNodeSelection.Y;
+                    int relevent_x = currentNode.x() - recordNodeSelection.x();
+                    int relevent_y = currentNode.y() - recordNodeSelection.y();
                     
-                    currentItemOnSelection->itemLeftVertex.X += relevent_x;
-                    currentItemOnSelection->itemLeftVertex.Y += relevent_y;
-                    currentItemOnSelection->itemRightVertex.X += relevent_x;
-                    currentItemOnSelection->itemRightVertex.Y += relevent_y;
+                    currentItemOnSelection->itemLeftVertex.setX(currentItemOnSelection->itemLeftVertex.x() + relevent_x);
+                    currentItemOnSelection->itemLeftVertex.setY(currentItemOnSelection->itemLeftVertex.y() + relevent_y);
+                    currentItemOnSelection->itemRightVertex.setX(currentItemOnSelection->itemRightVertex.x() + relevent_x);
+                    currentItemOnSelection->itemRightVertex.setY(currentItemOnSelection->itemRightVertex.y() + relevent_y);
                     
                     
                 }
@@ -445,12 +445,14 @@ void SGCanvasView::mouseReleaseEvent(QMouseEvent* event)
         for(SGModelBase* base : itemList) {
             base->itemStatus = SGItemStatus::ItemStatusOnNormal;
         }
-        mousePressNodeStart.X = INT_MAX;
-        mousePressNodeEnd.X = INT_MAX;
-        mousePressNodeStart.Y = INT_MAX;
-        mousePressNodeEnd.Y = INT_MAX;
-        recordNodeSelection.X = INT_MAX;
-        recordNodeSelection.Y = INT_MAX;
+        
+
+        mousePressNodeStart.setX(INT_MAX);
+        mousePressNodeEnd.setX(INT_MAX);
+        mousePressNodeStart.setY(INT_MAX);
+        mousePressNodeEnd.setY(INT_MAX);
+        recordNodeSelection.setX(INT_MAX);
+        recordNodeSelection.setY(INT_MAX);
         currentItemOnSelection = nullptr;
         // currentItemOnDraw = nullptr;
 

@@ -7,17 +7,17 @@
 
 #include "SGHeaders.h"
 
-QPointF SGCanvasUtil::nodeSGToPoint(SGNode node, SGCanvasViewInfo viewInfo)
+QPointF SGCanvasUtil::nodeSGToPoint(QPoint node, SGCanvasViewInfo viewInfo)
 {
-    float relevent_x = viewInfo.centerX + (float)(node.X*viewInfo.gap);
-    float relevent_y = viewInfo.centerY - (float)(node.Y*viewInfo.gap);
+    float relevent_x = viewInfo.centerX + (float)(node.x()*viewInfo.gap);
+    float relevent_y = viewInfo.centerY - (float)(node.y()*viewInfo.gap);
 
     return QPointF(relevent_x, relevent_y);
 }
 
-SGNode SGCanvasUtil::pointToSGNode(QPointF point, SGCanvasViewInfo viewInfo)
+QPoint SGCanvasUtil::pointToSGNode(QPointF point, SGCanvasViewInfo viewInfo)
 {
-    SGNode repo;
+    QPoint repo;
     
     float relevent_x = point.x() - viewInfo.centerX;
     float relevent_y = point.y() - viewInfo.centerY;
@@ -31,39 +31,39 @@ SGNode SGCanvasUtil::pointToSGNode(QPointF point, SGCanvasViewInfo viewInfo)
     float grid_center_Y = (float)Y_grid * viewInfo.gap + viewInfo.gap/2;
     
     if(grid_center_X - relevent_x > 0) {
-        repo.X = X_grid;
+        repo.setX(X_grid);
     } else {
-        repo.X = X_grid + 1;
+        repo.setX(X_grid + 1);
     }
     
     if(grid_center_Y - relevent_y > 0) {
-        repo.Y = Y_grid;
+        repo.setY(Y_grid);
     } else {
-        repo.Y = Y_grid + 1;
+        repo.setY(Y_grid + 1);
     }
-    repo.Y = -repo.Y;
+    repo.setY(-repo.y());
     
     return repo;
 }
 
-QPointF SGCanvasUtil::gridSGToPoint(SGGrid grid, SGCanvasViewInfo viewInfo)
+QPointF SGCanvasUtil::gridSGToPoint(QPoint grid, SGCanvasViewInfo viewInfo)
 {
     QPointF f;
-    f.setX(viewInfo.centerX + grid.X * viewInfo.gap);
-    f.setY(viewInfo.centerY - grid.Y * viewInfo.centerY);
+    f.setX(viewInfo.centerX + grid.x() * viewInfo.gap);
+    f.setY(viewInfo.centerY - grid.y() * viewInfo.centerY);
     return f;
 }
 
-SGGrid SGCanvasUtil::pointToSGGrid(QPointF point, SGCanvasViewInfo viewInfo)
+QPoint SGCanvasUtil::pointToSGGrid(QPointF point, SGCanvasViewInfo viewInfo)
 {
-    SGGrid repo;
+    QPoint repo;
     
     float relevent_x = point.x() - viewInfo.centerX;
     float relevent_y = point.y() - viewInfo.centerY;
 
-    repo.X = floor(relevent_x/viewInfo.gap);
-    repo.Y = floor(relevent_y/viewInfo.gap);
-    repo.Y = -repo.Y;
+    repo.setX(floor(relevent_x/viewInfo.gap));
+    repo.setY(floor(relevent_y/viewInfo.gap));
+    repo.setY(-repo.y());
     
     return repo;
 }

@@ -6,12 +6,16 @@
 #include <QToolButton>
 #include <QPushButton>
 #include <QPalette>
+
 #include "STNewProject.h"
 #include "STFileManager.h"
-#include "Sim/SGCanvasView.h"
 #include "STPreferences.h"
 #include "STToolBox.h"
 #include "STFormEditor.h"
+#include "STSimulation.h"
+
+#include "Sim/SGCanvasView.h"
+#include "Sim/SCNetlist.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,7 +30,6 @@ public:
     ~MainWindow();
 
 
-
 private:
     Ui::MainWindow *ui;
     QToolBar* toolBar;
@@ -35,7 +38,7 @@ private:
     STToolBox* toolBox;
     STFormEditor* formEditor;
     SGCanvasView* canvasView;
-    
+    STSimulation* simulationView;
     void initMenuBar();
     void removeDockWidgetTitleBar();
     QToolButton* createToolButton(QString, QString);

@@ -10,36 +10,29 @@
 
 #include <QObject>
 #include "SCHeader.h"
+#include "SGFile.h"
 
 /**
  Netlist 元件信息
  */
-struct SCNetlistItem {
+
+/// NodeData 的总结数据 包括标号 与此节点相连的其他元器件
+struct SCNodeDataSummary {
+    
+    int nodeID;
+    
+    /// 与此节点连接的所有其他 BaseModel 的指针
+    QList<SGModelBase*> nodeModelList;
     
 };
 
-/**
-    SCNetlist Netlist 解析
- */
+/// Netlist 解析工具
 class SCNetlist
 {
 public:
     SCNetlist();
     
-    /**
-    解析 Netlist 网表
-    @param QString 需要解析的 Netlist 网表字符串
-    @returns 网表结构体
-     */
-    void resolve(QString);
-    
-    void resolveComponent(QString);
-    
-    void resolvePower(QString);
-
-    void resolveNetlist(QString content);
-    
-    void countNode();
+    void resolveFromModelList(QList<SGModelBase*> modelList);
     
 };
 

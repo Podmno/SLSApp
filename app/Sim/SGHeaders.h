@@ -157,7 +157,10 @@ enum SGItemType {
 };
 
 /// 顶点位置描述
-struct SGNode {
+
+
+
+struct __attribute__((deprecated("SGNode 已经弃用，请使用 QPoint","QPoint"))) SGNode {
     int X;
     int Y;
     SGNode() {
@@ -169,10 +172,16 @@ struct SGNode {
         X = x;
         Y = y;
     }
+    
+    bool operator == (const SGNode nd){
+        return (nd.X == X)&&(nd.Y == Y) ? true : false;
+    }
 };
 
 /// 格子坐标描述
-struct SGGrid {
+
+
+struct __attribute__((deprecated("SGGrid 已经弃用，请使用 QPoint","QPoint"))) SGGrid {
     int X;
     int Y;
     
@@ -185,22 +194,26 @@ struct SGGrid {
         X = x;
         Y = y;
     }
+    
+    bool operator == (const SGGrid grid){
+        return (grid.X == X)&&(grid.Y == Y) ? true : false;
+    }
 };
 
 /// static 类 SGCanvas 换算工具
 class SGCanvasUtil {
 public:
     /// 将 SGNode 位置转换为 QPointF 绘图位置
-    static QPointF nodeSGToPoint(SGNode, SGCanvasViewInfo);
+    static QPointF nodeSGToPoint(QPoint, SGCanvasViewInfo);
     
     /// 将 QPointF 位置换算为 SGNode 位置
-    static SGNode pointToSGNode(QPointF, SGCanvasViewInfo);
+    static QPoint pointToSGNode(QPointF, SGCanvasViewInfo);
 
     /// 将 SGGrid 转换为 QPointF 位置
-    static QPointF gridSGToPoint(SGGrid, SGCanvasViewInfo);
+    static QPointF gridSGToPoint(QPoint, SGCanvasViewInfo);
 
     /// 将 QPointF 转换为 SGGrid
-    static SGGrid pointToSGGrid(QPointF, SGCanvasViewInfo);
+    static QPoint pointToSGGrid(QPointF, SGCanvasViewInfo);
     
     /// 角度计算函数 计算结果为度数
     static float calculateAngle(float x1, float y1, float x2, float y2);

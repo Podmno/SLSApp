@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
         STPreferences.h STPreferences.cpp STPreferences.ui
         STToolBox.h STToolBox.cpp STToolBox.ui
         STFormEditor.h STFormEditor.cpp STFormEditor.ui
+        STSimulation.h STSimulation.cpp STSimulation.ui
 )
 
 set(PROJECT_SOURCES_SIM
@@ -83,7 +84,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     add_custom_command(
             TARGET SLS
             POST_BUILD
-            COMMAND plutil -replace NSRequiresAquaSystemAppearance -bool true ./SLS.app/Contents/Info.plist
+            COMMAND plutil -replace NSRequiresAquaSystemAppearance -bool true ./Debug/SLS.app/Contents/Info.plist
     )
 endif()
 

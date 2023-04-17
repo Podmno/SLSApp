@@ -13,6 +13,7 @@
         <file>Res/zoom_add.png</file>
         <file>Res/zoom_minus.png</file>
         <file>Res/hand.png</file>
+        <file>Res/delete.png</file>
     </qresource>
     <qresource prefix="/templates">
         <file>Res/method_of_mna.sls</file>

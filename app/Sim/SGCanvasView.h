@@ -34,6 +34,10 @@ public:
     explicit SGCanvasView(QWidget *parent = nullptr);
     ~SGCanvasView();
     
+    
+    /// 物品元器件列表
+    QList<SGModelBase*> itemList;
+    
 
 // MARK: 外部公开 API 函数
     
@@ -58,6 +62,8 @@ public:
     /// 读取 Canvas 文件
     void loadCanvasFile(QString);
     
+    
+    
 public slots:
     // MARK: - 外部信号槽
 
@@ -80,15 +86,14 @@ private:
     void drawGridRectangle(int,int);
     
     /// 在指定点绘制顶点功能
-    void drawNodeAtPoint(SGNode);
+    void drawNodeAtPoint(QPoint);
     
     /// 设定鼠标指针状态
     void uiSetCursorShape(SGCanvasViewStatus);
 
     Ui::SGCanvasView *ui;
     
-    /// 物品元器件列表
-    QList<SGModelBase*> itemList;
+
     /// 通知显示栈
     QList<SGCanvasNotification> notificationList;
     
@@ -102,9 +107,9 @@ private:
     SGCanvasViewInfo viewInfo;
     
     /// 实时：当前光标所在的 Grid 坐标
-    SGGrid currentGridRelevent;
+    QPoint currentGridRelevent;
     /// 实时：当前光标指向的 Node 坐标
-    SGNode currentNode;
+    QPoint currentNode;
     /// 实时：当前光标的具体坐标
     QPointF currentPoint;
     
@@ -146,17 +151,17 @@ private:
     bool showNodeOnCanvas;
     
     // 鼠标的起始位置
-    SGNode mousePressNodeStart;
+    QPoint mousePressNodeStart;
     // 鼠标的结束位置
-    SGNode mousePressNodeEnd;
+    QPoint mousePressNodeEnd;
     
     // 记录的起始点
-    SGNode recordNodeStart;
+    QPoint recordNodeStart;
     // 记录的结束点
-    SGNode recordNodeEnd;
+    QPoint recordNodeEnd;
     
     // 记录移动元器件时的初始位置记录
-    SGNode recordNodeSelection;
+    QPoint recordNodeSelection;
     
     
     // 记录鼠标按下时的相对坐标位置

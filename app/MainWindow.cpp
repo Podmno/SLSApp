@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     toolBox = new STToolBox(this);
     canvasView = new SGCanvasView(this);
     formEditor = new STFormEditor(this);
+    simulationView = new STSimulation(this);
     ui->tabWidget->addTab(widgetFileManager, "浏览");
+    ui->tabWidget->addTab(simulationView, "模拟");
 
     connect(ui->actionNew_Simulation_Project, &QAction::triggered, this, [=](){
         qDebug() << "Open New Simulation Project";
@@ -49,6 +51,17 @@ MainWindow::MainWindow(QWidget *parent)
         
         canvasView->setCanvasCurrentStatus(SGCanvasViewStatus::CanvasStatusEditing);
         canvasView->setItemPrepareToDraw(type);
+    });
+    
+    connect(simulationView, &STSimulation::startSimulation, this, [=](){
+        qDebug() << "SLS > Start Simulation";
+        
+        SCNetlist* netlist = new SCNetlist();
+        netlist->resolveFromModelList(canvasView->itemList);
+        
+        //netlist->resolveFromModelList(can)
+        //netlist->resolveFromModelList(canvasView->item)
+        
     });
     
 }
@@ -92,8 +105,6 @@ void MainWindow::initMenuBar()
     
     ui->toolBar->addSeparator();
     
-    
-    
     auto button_copy = createToolButton("复制",":/pic/Res/copy.png");
     button_copy->setEnabled(false);
     ui->toolBar->addWidget(button_copy);
@@ -102,6 +113,10 @@ void MainWindow::initMenuBar()
     auto button_paste = createToolButton("粘贴",":/pic/Res/paste.png");
     button_paste->setEnabled(false);
     ui->toolBar->addWidget(button_paste);
+    
+    auto button_delete = createToolButton("删除",":/pic/Res/delete.png");
+    button_delete->setEnabled(false);
+    ui->toolBar->addWidget(button_delete);
     
     ui->toolBar->addSeparator();
     

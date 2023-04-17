@@ -29,9 +29,9 @@ public:
     SGItemStatus itemStatus;
     
     /// 左侧顶点位置
-    SGNode itemLeftVertex;
+    QPoint itemLeftVertex;
     /// 右侧顶点位置
-    SGNode itemRightVertex;
+    QPoint itemRightVertex;
     
     /// 物件的 UUID 号码
     QString itemUUID;
@@ -40,7 +40,7 @@ public:
     QString itemIdentifier;
 
     /// 对于多顶点元器件的追加
-    QList<SGNode> itemOtherVertex;
+    QList<QPoint> itemOtherVertex;
 
     /// 用于内部根据当前状态获取画笔颜色
     QColor getDrawColor();
