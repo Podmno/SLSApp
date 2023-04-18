@@ -102,8 +102,17 @@ background-color: white
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuImport_data_from_CSV">
+     <property name="title">
+      <string>Import data from CSV...</string>
+     </property>
+     <addaction name="actionTable_Data"/>
+     <addaction name="actionPoint_Data"/>
+    </widget>
     <addaction name="actionNew_Simulation_Project"/>
     <addaction name="actionOpen_Project"/>
+    <addaction name="separator"/>
+    <addaction name="menuImport_data_from_CSV"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_2"/>
@@ -158,13 +167,13 @@ background-color: rgb(255, 255, 255)
   <widget class="QDockWidget" name="dockWidget">
    <property name="minimumSize">
     <size>
-     <width>200</width>
+     <width>140</width>
      <height>50</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>300</width>
+     <width>200</width>
      <height>524287</height>
     </size>
    </property>
@@ -421,6 +430,16 @@ background: white;
   <action name="actionPreferences">
    <property name="text">
     <string>Preferences...</string>
+   </property>
+  </action>
+  <action name="actionTable_Data">
+   <property name="text">
+    <string>Table Data</string>
+   </property>
+  </action>
+  <action name="actionPoint_Data">
+   <property name="text">
+    <string>Point Data</string>
    </property>
   </action>
  </widget>

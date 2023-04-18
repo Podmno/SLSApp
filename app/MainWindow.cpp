@@ -32,6 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
         STPreferences* pref = new STPreferences();
         pref->show();
     });
+    
+    connect(ui->actionTable_Data, &QAction::triggered, this, [=](){
+        
+    });
 
 
     initMenuBar();
