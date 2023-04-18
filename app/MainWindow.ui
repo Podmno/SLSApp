@@ -36,16 +36,6 @@ background-color:white
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item row="0" column="1">
-     <widget class="QScrollBar" name="verticalScrollBar">
-      <property name="value">
-       <number>50</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="styleSheet">
@@ -87,6 +77,16 @@ background-color: white
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QScrollBar" name="verticalScrollBar">
+      <property name="value">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -108,6 +108,7 @@ background-color: white
      </property>
      <addaction name="actionTable_Data"/>
      <addaction name="actionPoint_Data"/>
+     <addaction name="actionTable_Data_as_Bar3D"/>
     </widget>
     <addaction name="actionNew_Simulation_Project"/>
     <addaction name="actionOpen_Project"/>
@@ -143,6 +144,9 @@ background-color: white
     <property name="title">
      <string>Window</string>
     </property>
+    <addaction name="actionWindow1"/>
+    <addaction name="actionWindow_2"/>
+    <addaction name="actionWindow_3"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -277,7 +281,7 @@ border-radius:5px;
    </property>
    <property name="maximumSize">
     <size>
-     <width>300</width>
+     <width>500</width>
      <height>524287</height>
     </size>
    </property>
@@ -319,7 +323,7 @@ background: white;
    </property>
    <property name="maximumSize">
     <size>
-     <width>300</width>
+     <width>500</width>
      <height>524287</height>
     </size>
    </property>
@@ -434,12 +438,32 @@ background: white;
   </action>
   <action name="actionTable_Data">
    <property name="text">
-    <string>Table Data</string>
+    <string>Table Data as Bar2D</string>
    </property>
   </action>
   <action name="actionPoint_Data">
    <property name="text">
-    <string>Point Data</string>
+    <string>Point Data as Point2D</string>
+   </property>
+  </action>
+  <action name="actionWindow1">
+   <property name="text">
+    <string>Simulation Canvas</string>
+   </property>
+  </action>
+  <action name="actionWindow_2">
+   <property name="text">
+    <string>2D Draw</string>
+   </property>
+  </action>
+  <action name="actionWindow_3">
+   <property name="text">
+    <string>3D Draw</string>
+   </property>
+  </action>
+  <action name="actionTable_Data_as_Bar3D">
+   <property name="text">
+    <string>Table Data as Bar3D</string>
    </property>
   </action>
  </widget>

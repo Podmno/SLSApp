@@ -25,6 +25,8 @@ public:
     
     LGBaseModel* dataModel;
     
+    void setDataModel(LGBaseModel*);
+    
 private:
     Ui::LG2DWidget *ui;
     QChartView* chartView;

@@ -10,9 +10,16 @@ MainWindow::MainWindow(QWidget *parent)
     widgetFileManager = new STFileManager(this);
     toolBox = new STToolBox(this);
     canvasView = new SGCanvasView(this);
+    window1 = canvasView;
     formEditor = new STFormEditor(this);
     simulationView = new STSimulation(this);
     netlistHelper = new SCNetlist();
+    
+    window2 = new QWidget(this);
+    window3 = new QWidget(this);
+    
+    ui->stackedWidget->addWidget(window2);
+    ui->stackedWidget->addWidget(window3);
     
     ui->tabWidget->addTab(widgetFileManager, "浏览");
     ui->tabWidget->addTab(simulationView, "模拟");
@@ -34,13 +41,59 @@ MainWindow::MainWindow(QWidget *parent)
     });
     
     connect(ui->actionTable_Data, &QAction::triggered, this, [=](){
+    });
+    
+    connect(formEditor, &STFormEditor::onDataFormFinished, this, [=](LGBaseModel* md){
         
+        // TODO: 发送的 LGBaseModel 待处理
+        
+        if(md->dataType == LGModelType::DataModelBar2D || md->dataType == LGModelType::DataModelPie2D || md->dataType == LGModelType::DataModelLine2D || md->dataType == LGModelType::DataModelArea2D) {
+            qDebug() << "SLS > Receive Data From Editor !";
+            
+            LG2DWidget* widget2D = new LG2DWidget();
+            
+            qDebug() << "SLS > Stacked widget index: "; //ui->stackedWidget->addWidget(widget2D);
+            
+            widget2D->dataModel = md;
+            widget2D->update();
+            ui->stackedWidget->removeWidget(ui->stackedWidget->widget(1));
+            ui->stackedWidget->insertWidget(1, widget2D);
+            ui->stackedWidget->setCurrentIndex(1);
+        }
+        
+        if(md->dataType == LGModelType::DataModelBar3D) {
+            LG3DWidget* widget3D = new LG3DWidget();
+            widget3D->dataModel = md;
+            widget3D->update();
+            
+            ui->stackedWidget->removeWidget(ui->stackedWidget->widget(2));
+            ui->stackedWidget->insertWidget(2, widget3D);
+            ui->stackedWidget->setCurrentIndex(2);
+            
+        }
+        
+        
+        
+    });
+    
+    connect(ui->actionWindow1, &QAction::triggered, this, [=](){
+        ui->stackedWidget->setCurrentIndex(0);
+        
+    });
+    
+    connect(ui->actionWindow_2, &QAction::triggered, this, [=](){
+        ui->stackedWidget->setCurrentIndex(1);
+    });
+    
+    connect(ui->actionWindow_3, &QAction::triggered, this, [=](){
+        ui->stackedWidget->setCurrentIndex(2);
     });
 
 
     initMenuBar();
     removeDockWidgetTitleBar();
-    
+    window2 = nullptr;
+    window3 = nullptr;
 
     
     ui->dockWidget_2->setWidget(toolBox);
@@ -75,6 +128,8 @@ MainWindow::MainWindow(QWidget *parent)
         QString info = "当前坐标：" + QString::number(currentPt.x()) + "," + QString::number(currentPt.y());
         ui->statusbar->showMessage(info);
     });
+    
+    
     
 }
 
@@ -220,3 +275,4 @@ QToolButton* MainWindow::createToolButton(QString name, QString iconp)
     button_cursor->setFixedWidth(35);
     return button_cursor;
 }
+

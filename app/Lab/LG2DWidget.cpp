@@ -15,6 +15,11 @@ LG2DWidget::LG2DWidget(QWidget *parent) :
     
 }
 
+void LG2DWidget::setDataModel(LGBaseModel* md)
+{
+    this->dataModel = md;
+}
+
 void LG2DWidget::update()
 {
     

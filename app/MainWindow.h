@@ -14,8 +14,14 @@
 #include "STFormEditor.h"
 #include "STSimulation.h"
 
+
 #include "Sim/SGCanvasView.h"
 #include "Sim/SCNetlist.h"
+
+#include "Lab/LGDataModel.h"
+#include "Lab/LGStyleCollection.h"
+#include "Lab/LG2DWidget.h"
+#include "Lab/LG3DWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,6 +46,10 @@ private:
     SGCanvasView* canvasView;
     STSimulation* simulationView;
     SCNetlist* netlistHelper;
+    
+    QWidget* window1;
+    QWidget* window2;
+    QWidget* window3;
     
     void initMenuBar();
     void removeDockWidgetTitleBar();

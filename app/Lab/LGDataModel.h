@@ -24,9 +24,11 @@ enum LGModelType {
 };
 
 class LGBaseModel {
-public:
-    LGBaseModel();
     
+
+public:
+
+    LGBaseModel();
     /// 图表的数据类型
     LGModelType dataType;
     /// 图表名称
@@ -43,7 +45,7 @@ public:
 
 /// 单个 2D 系列数据
 struct LGBarSeries {
-  
+
     /// 单个系列的名称
     QString title;
     /// Double 类型数据
