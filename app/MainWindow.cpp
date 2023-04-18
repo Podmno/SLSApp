@@ -129,7 +129,64 @@ MainWindow::MainWindow(QWidget *parent)
         ui->statusbar->showMessage(info);
     });
     
+    connect(ui->actionTable_Data_as_Bar3D, &QAction::triggered, this, [=](){
+        // Table Data as Bar3D
+        
+        QString fileName = QFileDialog::getOpenFileName(this,"","","");
+        QFileInfo info = QFileInfo(fileName);
+                
+        if(!info.exists()) {
+            return;
+        }
+        
+        
+        LG3DWidget* widget3D = new LG3DWidget();
+        LG3DBarModel* dataModal = new LG3DBarModel();
+        dataModal->importFromCSV(fileName);
+        dataModal->dataType = LGModelType::DataModelBar3D;
+        widget3D->dataModel = dataModal;
+        widget3D->update();
+        widget3D->show();
+        
+    });
     
+    connect(ui->actionPoint_Data, &QAction::triggered, this, [=](){
+        // Point Data as Point2D
+        QString fileName = QFileDialog::getOpenFileName(this,"","","");
+        QFileInfo info = QFileInfo(fileName);
+                
+        if(!info.exists()) {
+            return;
+        }
+        
+        LG2DWidget* widget2D = new LG2DWidget();
+        ui->gridLayout->addWidget(widget2D);
+        LG2DPointModel* dataModal = new LG2DPointModel();
+        dataModal->title = info.fileName();
+        dataModal->importFromCSV(fileName);
+        widget2D->dataModel = dataModal;
+        widget2D->update();
+        widget2D->show();
+    });
+    
+    connect(ui->actionTable_Data, &QAction::triggered, this, [=](){
+        // Table Data as Bar2D
+        QString fileName = QFileDialog::getOpenFileName(this,"","","");
+        QFileInfo info = QFileInfo(fileName);
+                
+        if(!info.exists()) {
+            return;
+        }
+        
+        LG2DWidget* widget2D = new LG2DWidget();
+                    
+        LG2DBarModel* dataModel = new LG2DBarModel();
+        dataModel->title = info.fileName();
+        dataModel->importFromCSV(fileName);
+        widget2D->dataModel = dataModel;
+        widget2D->update();
+        widget2D->show();
+    });
     
 }
 
