@@ -69,6 +69,10 @@ public slots:
 
     void onScroolHorizontalChanged(int value);
     void onScroolVerticalChanged(int value);
+    
+signals:
+    
+    void onCurrentNodeChangedInfo(QPoint);
         
     
 private:

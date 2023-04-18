@@ -162,8 +162,8 @@ void SCNetlist::resolveFromModelList(QList<SGModelBase *> modelList)
     // s
     
     sim_core->runSimulation();
-    sim_core->outputVectorInfo();
-    
+    QString reply_matrix = QString::fromStdString(sim_core->outputVectorInfo());
+    emit signalResolveInformation(reply_matrix);
     
     
 }

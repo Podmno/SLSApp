@@ -67,6 +67,11 @@ MainWindow::MainWindow(QWidget *parent)
         
     });
     
+    connect(canvasView, &SGCanvasView::onCurrentNodeChangedInfo, this, [=](QPoint currentPt){
+        QString info = "当前坐标：" + QString::number(currentPt.x()) + "," + QString::number(currentPt.y());
+        ui->statusbar->showMessage(info);
+    });
+    
 }
 
 MainWindow::~MainWindow()

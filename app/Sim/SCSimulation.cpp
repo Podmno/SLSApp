@@ -84,12 +84,14 @@ void SCSimulation::addSourceAModal(int nodeID_L , int nodeID_R, double a_val)
     vectorZ[nodeID_L - 1] += a_val;
 }
 
-void SCSimulation::outputVectorInfo()
+std::string SCSimulation::outputVectorInfo()
 {
-    std::cout << "A:" << std::endl;
-    std::cout << matrixA << std::endl;
-    std::cout << "Z:" << std::endl;
-    std::cout << vectorZ << std::endl;
-    std::cout << "X:" << std::endl;
-    std::cout << vectorX << std::endl;
+    std::stringstream strstream;
+    strstream << "A:" << std::endl;
+    strstream << matrixA << std::endl;
+    strstream << "Z:" << std::endl;
+    strstream << vectorZ << std::endl;
+    strstream << "X:" << std::endl;
+    strstream << vectorX << std::endl;
+    return strstream.str();
 }

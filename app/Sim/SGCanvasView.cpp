@@ -44,6 +44,8 @@ SGCanvasView::SGCanvasView(QWidget *parent) :
     
 }
 
+// TODO: 第一个 DrawNode 处于神秘位置，待修复
+
 void SGCanvasView::drawGridRectangle(int x, int y)
 {
     // 绘制当前选中的格子
@@ -87,7 +89,11 @@ void SGCanvasView::drawNodeAtPoint(QPoint node)
 void SGCanvasView::sendCurrentMousePoint(QPointF p)
 {
     currentGridRelevent = SGCanvasUtil::pointToSGGrid(p, viewInfo);
+    QPoint currentNodeBefore = currentNode;
     currentNode = SGCanvasUtil::pointToSGNode(p, viewInfo);
+    if(currentNodeBefore != currentNode) {
+        emit onCurrentNodeChangedInfo(currentNode);
+    }
     currentPoint = p;
     
 }
@@ -240,14 +246,17 @@ void SGCanvasView::outputCanvasGridInfo()
 
 void SGCanvasView::calcSimulationNode()
 {
+    
     if(currentItemOnDraw->itemType != SGItemType::ItemTypeLine) {
         return;
     }
 
-    for(SGModelBase* ms : itemList) {
-        
+    SGModelBase* ms = currentItemOnDraw;
 
-            for(SGModelBase* md_edit : itemList) {
+        
+    for(int p = int(itemList.count()) -1 ; p>=0 ; p--) {
+                
+        SGModelBase* md_edit = itemList[p];
                 
                 if(md_edit->itemType == SGItemType::ItemTypeLine) {
                     continue;
@@ -292,7 +301,6 @@ void SGCanvasView::calcSimulationNode()
  
                 }
                 
-            }
             
         
     }
@@ -340,7 +348,7 @@ void SGCanvasView::paintEvent(QPaintEvent *event)
             if(canvasStatus == SGCanvasViewStatus::CanvasStatusEditing) {
                 this->drawNodeAtPoint(currentNode);
                 this->drawNodeAtPoint(mousePressNodeStart);
-                this->drawNodeAtPoint(mousePressNodeEnd);
+                //this->drawNodeAtPoint(mousePressNodeEnd);
                 currentItemOnDraw->itemRightVertex.setX(currentNode.x());
                 currentItemOnDraw->itemRightVertex.setY(currentNode.y());
             }

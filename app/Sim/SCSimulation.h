@@ -53,7 +53,7 @@ public:
     /// 为矩阵添加电流源的贡献 nodeID_L 为正 nodeID_R 为负
     void addSourceAModal(int nodeID_L, int nodeID_R, double a_val);
     
-    void outputVectorInfo();
+    std::string outputVectorInfo();
     
     
 private:
